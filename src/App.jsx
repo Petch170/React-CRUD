@@ -1,3 +1,4 @@
+// import React from "react";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./Navbar";
 import User from "./User";
@@ -9,9 +10,9 @@ function App() {
     <div>
       <NavBar />
       <Routes>
-        <Route path="/" element={<User />}/>
-        <Route path="/create" element={<UserCreate />}/>
-        <Route path="/update/:id" element={<UserUpdate />}/>
+        <Route path="/" element={<User />} />
+        <Route path="/create" element={<UserCreate />} />
+        <Route path="/update/:id" element={<UserUpdate />} />
       </Routes>
     </div>
   );

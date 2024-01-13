@@ -7,38 +7,34 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 
-
 export default function UserCreate() {
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({
+    const data = {
       fname: fname,
       lname: lname,
       username: username,
       password: "1234",
       email: email,
       avatar: avatar,
-    });
-
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
     };
 
-    fetch("https://www.melivecode.com/api/users/create", requestOptions)
-      .then((response) => response.json())
+    fetch("https://www.melivecode.com/api/users/create", {
+      method: "POST",
+      headers: {
+        Accept: "application/form-data",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
       .then((result) => {
-        alert(result['message']);
-        if (result['status'] === "ok") {
+        alert(result["message"]);
+        if (result["status"] === "ok") {
           window.location.href = "/";
         }
-      })
-      .catch((error) => console.log("error", error));
+      });
   };
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
@@ -47,23 +43,26 @@ export default function UserCreate() {
   const [avatar, setAvatar] = useState("");
 
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <Container maxWidth="sm" sx={{ p: 2 }}>
-     {/* <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} /> */}
-        <Typography variant="h6" gutterBottom component="div">
+    <Container maxWidth="sm" sx={{ p: 2 }}>
+      <div>
+        {" "}
+        {/* <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} /> */}
+        <Typography variant="h6" component="h1">
           Create User
         </Typography>
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
+          <Grid container sx={{ p: 2 }} spacing={2}>
             <Grid item xs={12}>
               <TextField
+                autoComplete="fname"
+                name="firstName"
                 id="fname"
                 label="First name"
                 variant="outlined"
                 fullWidth
                 required
                 onChange={(e) => setFname(e.target.value)}
+                autoFocus
               />
             </Grid>
             <Grid item xs={12}>
@@ -75,7 +74,7 @@ export default function UserCreate() {
                 required
                 onChange={(e) => setLname(e.target.value)}
               />
-            </Grid>{" "}
+            </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 id="username"
@@ -113,7 +112,7 @@ export default function UserCreate() {
             </Grid>
           </Grid>
         </form>
-      </Container>
-    </React.Fragment>
+      </div>
+    </Container>
   );
 }

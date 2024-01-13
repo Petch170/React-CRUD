@@ -11,24 +11,22 @@ export default function UserUpdate() {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch("https://www.mecallapi.com/api/users/"+id)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setFname(result.user.fname)
-          setLname(result.user.lname)
-          setUsername(result.user.username)
-          setEmail(result.user.email)
-          setAvatar(result.user.avatar)
-        }
-      )
-  }, [id])
+    fetch("https://www.mecallapi.com/api/users/" + id)
+      .then((res) => res.json())
+      .then((result) => {
+        setFname(result.user.fname);
+        setLname(result.user.lname);
+        setUsername(result.user.username);
+        setEmail(result.user.email);
+        setAvatar(result.user.avatar);
+      });
+  }, [id]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const data = {
-      id:id,
+      id: id,
       fname: fname,
       lname: lname,
       username: username,
@@ -37,24 +35,22 @@ export default function UserUpdate() {
       avatar: avatar,
     };
 
-    fetch("https://www.melivecode.com/api/users/update",{
-    method: "PUT",
-    headers: {
-      Accept: 'application/form-data',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-  .then(res => res.json())
-  .then(
-    (result) => {
-      alert(result['message'])
-      if (result['status'] === 'ok') {
-        window.location.href = '/';
-      }
-    }
-  )
-}
+    fetch("https://www.melivecode.com/api/users/update", {
+      method: "PUT",
+      headers: {
+        Accept: "application/form-data",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        alert(result["message"]);
+        if (result["status"] === "ok") {
+          window.location.href = "/";
+        }
+      });
+  };
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [username, setUsername] = useState("");
@@ -62,15 +58,14 @@ export default function UserUpdate() {
   const [avatar, setAvatar] = useState("");
 
   return (
-  
-      <Container maxWidth="sm" sx={{ p: 2 }}>
-        <div>
+    <Container maxWidth="sm" sx={{ p: 2 }}>
+      <div>
         <Typography variant="h6" component="h1">
           Update User
         </Typography>
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={2} sx={{pt:2}}>
-            <Grid item xs={12} >
+          <Grid container spacing={2} sx={{ pt: 2 }}>
+            <Grid item xs={12}>
               <TextField
                 autoComplete="fname"
                 name="firstName"
@@ -135,8 +130,7 @@ export default function UserUpdate() {
             </Grid>
           </Grid>
         </form>
-        </div>
-      </Container>
-  
+      </div>
+    </Container>
   );
 }
