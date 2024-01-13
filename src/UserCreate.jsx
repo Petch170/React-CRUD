@@ -7,9 +7,8 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 
-
 export default function UserCreate() {
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -33,8 +32,8 @@ export default function UserCreate() {
     fetch("https://www.melivecode.com/api/users/create", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        alert(result['message']);
-        if (result['status'] === "ok") {
+        alert(result["message"]);
+        if (result["status"] === "ok") {
           window.location.href = "/";
         }
       })
@@ -50,7 +49,7 @@ export default function UserCreate() {
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="sm" sx={{ p: 2 }}>
-     {/* <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} /> */}
+        {/* <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} /> */}
         <Typography variant="h6" gutterBottom component="div">
           Create User
         </Typography>

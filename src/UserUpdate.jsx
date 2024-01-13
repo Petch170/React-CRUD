@@ -1,5 +1,4 @@
 import * as React from "react";
-import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -19,24 +18,21 @@ export default function UserUpdate() {
 
     fetch("https://www.melivecode.com/api/users/" + id, requestOptions)
       .then((response) => response.json())
-      .then((result) => {
-        if (result["status"] === "ok") {
-          setFname(result["user"]["fname"]);
-          setLname(result["user"]["lname"]);
-          setUsername(result["user"]["username"]);
-          setEmail(result["user"]["email"]);
-          setAvatar(result["user"]["avatar"]);
+      .then(
+        (result) => {
+          setFname(result.user.fname)
+          setLname(result.user.lname)
+          setUsername(result.user.username)
+          setEmail(result.user.email)
+          setAvatar(result.user.avatar)
         }
-      })
-      .catch((error) => console.log("error", error));
-  }, [id]);
+      )
+  }, [id])
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({
+    const data = {
       id:id,
       fname: fname,
       lname: lname,
@@ -44,25 +40,26 @@ export default function UserUpdate() {
       password: "1234",
       email: email,
       avatar: avatar,
-    });
-
-    var requestOptions = {
-      method: "PUT",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
     };
 
-    fetch("https://www.melivecode.com/api/users/update", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        alert(result["message"]);
-        if (result["status"] === "ok") {
-          window.location.href = "/";
-        }
-      })
-      .catch((error) => console.log("error", error));
-  };
+    fetch("https://www.melivecode.com/api/users/update",{
+    method: "PUT",
+    headers: {
+      Accept: 'application/form-data',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+  .then(res => res.json())
+  .then(
+    (result) => {
+      alert(result['message'])
+      if (result['status'] === 'ok') {
+        window.location.href = '/';
+      }
+    }
+  )
+}
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [username, setUsername] = useState("");
@@ -70,24 +67,26 @@ export default function UserUpdate() {
   const [avatar, setAvatar] = useState("");
 
   return (
-    <React.Fragment>
-      <CssBaseline />
+  
       <Container maxWidth="sm" sx={{ p: 2 }}>
-        {/* <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} /> */}
-        <Typography variant="h6" gutterBottom component="div">
+        <div>
+        <Typography variant="h6" component="h1">
           Update User
         </Typography>
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
+          <Grid container spacing={2} sx={{pt:2}}>
+            <Grid item xs={12} sm={6}>
               <TextField
+                autoComplete="fname"
+                name="firstName"
+                fullWidth
+                required
                 id="fname"
                 label="First name"
                 variant="outlined"
-                fullWidth
-                required
                 onChange={(e) => setFname(e.target.value)}
                 value={fname}
+                autofocus
               />
             </Grid>
             <Grid item xs={12}>
@@ -141,7 +140,8 @@ export default function UserUpdate() {
             </Grid>
           </Grid>
         </form>
+        </div>
       </Container>
-    </React.Fragment>
+  
   );
 }
