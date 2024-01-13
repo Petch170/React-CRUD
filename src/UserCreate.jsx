@@ -1,5 +1,4 @@
 import * as React from "react";
-import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -46,8 +45,6 @@ export default function UserCreate() {
   const [avatar, setAvatar] = useState("");
 
   return (
-    <React.Fragment>
-      <CssBaseline />
       <Container maxWidth="sm" sx={{ p: 2 }}>
         {/* <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} /> */}
         <Typography variant="h6" gutterBottom component="div">
@@ -113,6 +110,5 @@ export default function UserCreate() {
           </Grid>
         </form>
       </Container>
-    </React.Fragment>
   );
 }
