@@ -7,5 +7,5 @@ export default defineConfig({
   build: {
     rollupOptions: {
       external: ['@mui/material/paper'],
-    }
-  })
+    },
+  },});
