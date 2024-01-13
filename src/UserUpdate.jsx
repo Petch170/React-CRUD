@@ -11,13 +11,8 @@ export default function UserUpdate() {
   const { id } = useParams();
 
   useEffect(() => {
-    var requestOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
-
-    fetch("https://www.melivecode.com/api/users/" + id, requestOptions)
-      .then((response) => response.json())
+    fetch("https://www.mecallapi.com/api/users/"+id)
+      .then(res => res.json())
       .then(
         (result) => {
           setFname(result.user.fname)
@@ -75,7 +70,7 @@ export default function UserUpdate() {
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2} sx={{pt:2}}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} >
               <TextField
                 autoComplete="fname"
                 name="firstName"
@@ -135,7 +130,7 @@ export default function UserUpdate() {
             </Grid>
             <Grid item xs={12}>
               <Button type="submit" variant="contained" fullWidth>
-                Update
+                Submit
               </Button>
             </Grid>
           </Grid>

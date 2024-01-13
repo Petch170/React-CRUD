@@ -1,4 +1,5 @@
 import * as React from "react";
+import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -6,8 +7,9 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 
+
 export default function UserCreate() {
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -31,8 +33,8 @@ export default function UserCreate() {
     fetch("https://www.melivecode.com/api/users/create", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        alert(result["message"]);
-        if (result["status"] === "ok") {
+        alert(result['message']);
+        if (result['status'] === "ok") {
           window.location.href = "/";
         }
       })
@@ -45,8 +47,10 @@ export default function UserCreate() {
   const [avatar, setAvatar] = useState("");
 
   return (
+    <React.Fragment>
+      <CssBaseline />
       <Container maxWidth="sm" sx={{ p: 2 }}>
-        {/* <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} /> */}
+     {/* <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} /> */}
         <Typography variant="h6" gutterBottom component="div">
           Create User
         </Typography>
@@ -110,5 +114,6 @@ export default function UserCreate() {
           </Grid>
         </form>
       </Container>
+    </React.Fragment>
   );
 }
